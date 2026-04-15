@@ -1,78 +1,54 @@
-import java.util.*;
-
 /**
  * MAIN CLASS - TrainConsistManagement
  *
- * Use Case 15: Safe Cargo Assignment Using try-catch-finally
+ * Use Case 16: Sort Passenger Bogies by Capacity
  *
  * Description:
- * This class safely assigns cargo to goods bogies
- * while handling unsafe combinations using structured
- * exception handling blocks.
+ * This class demonstrates manual sorting of passenger
+ * bogie capacities using the Bubble Sort algorithm
+ * instead of built-in sorting utilities.
  *
  * At this stage, the application:
- * - Defines a custom runtime exception
- * - Validates cargo assignment rules
- * - Throws exception for unsafe cargo
- * - Catches and handles the exception
- * - Executes finally block for logging
+ * - Creates an array of capacities
+ * - Compares adjacent values
+ * - Swaps values when required
+ * - Repeats passes until sorted
+ * - Displays sorted result
  *
- * This maps runtime safety handling using try-catch-finally.
+ * This maps algorithmic sorting logic using Bubble Sort.
  *
  * @author Shrey Sharma
- * @version 15.0
+ * @version 16.0
  */
 
 public class TrainConsistManagement {
 
-    static class CargoSafetyException extends RuntimeException {
-        public CargoSafetyException(String message) {
-            super(message);
-        }
-    }
-
-    static class GoodsBogie {
-        String shape;
-        String cargo;
-
-        GoodsBogie(String shape) {
-            this.shape = shape;
-        }
-
-        void assignCargo(String cargo) {
-            try {
-                if (shape.equals("Rectangular") && cargo.equals("Petroleum")) {
-                    throw new CargoSafetyException("Unsafe cargo assignment: Rectangular bogie cannot carry Petroleum.");
-                }
-                this.cargo = cargo;
-                System.out.println("Cargo assigned successfully: " + cargo);
-            } catch (CargoSafetyException e) {
-                System.out.println("Error: " + e.getMessage());
-            } finally {
-                System.out.println("Cargo assignment attempt completed.");
-            }
-        }
-
-        public String toString() {
-            return shape + " -> Cargo: " + cargo;
-        }
-    }
-
     public static void main(String[] args) {
 
         System.out.println("=====================================");
-        System.out.println(" UC15 - Safe Cargo Assignment Using try-catch-finally ");
+        System.out.println(" UC16 - Manual Sorting using Bubble Sort ");
         System.out.println("=====================================\n");
 
-        GoodsBogie b1 = new GoodsBogie("Rectangular");
-        GoodsBogie b2 = new GoodsBogie("Cylindrical");
+        int[] capacities = {72, 56, 24, 70, 60};
 
-        b1.assignCargo("Coal");
-        b2.assignCargo("Petroleum");
-        b1.assignCargo("Petroleum");
+        System.out.println("Original Capacities:");
+        for (int c : capacities) {
+            System.out.print(c + " ");
+        }
 
-        System.out.println("\nFinal Bogie Status:");
-        System.out.println(b1);
-        System.out.println(b2);
+        for (int i = 0; i < capacities.length - 1; i++) {
+            for (int j = 0; j < capacities.length - 1 - i; j++) {
+                if (capacities[j] > capacities[j + 1]) {
+                    int temp = capacities[j];
+                    capacities[j] = capacities[j + 1];
+                    capacities[j + 1] = temp;
+                }
+            }
+        }
+
+        System.out.println("\n\nSorted Capacities (Ascending):");
+        for (int c : capacities) {
+            System.out.print(c + " ");
+        }
     }
 }
